@@ -26,7 +26,7 @@ Once deployed to an OpenFaaS instance the endpoint can be called with:
 This will consolidate all the images within the provided orgs.
 
 ```sh
-$ curl http://localhost:8080/function/pullstats -d ''
+$ curl https://rgee0.o6s.io/pullstats -d ''
 
 {
   "alertmanager": 4329010,
@@ -43,13 +43,20 @@ $ curl http://localhost:8080/function/pullstats -d ''
 }
 ```
 
+Try piping through jq to prettify
+
+```
+$ curl -s https://rgee0.o6s.io/pullstats -d '' | jq .
+```
+
+
 ### Specific image name
 
 This will consolidate only the provided image name.
 > Note: if the image name ist found within the set then the output will revert to default
 
 ```sh
-$ curl http://localhost:8080/function/pullstats -d 'gateway'
+$ curl https://rgee0.o6s.io/pullstats -d 'gateway'
 
 7218749
  
