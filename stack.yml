@@ -1,0 +1,14 @@
+provider:
+  name: openfaas
+  gateway: http://127.0.0.1:8080
+functions:
+  pullstats:
+    lang: go
+    handler: ./pullstats
+    image: rgee0/pullstats:latest
+    environment:
+      orgs: openfaas,functions
+      read_timeout: 30s
+      write_timeout: 30s
+    labels:
+      com.openfaas.scale.zero: false
