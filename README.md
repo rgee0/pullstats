@@ -29,8 +29,8 @@ This will consolidate all the images within the provided orgs.
 $ curl https://rgee0.o6s.io/pullstats -d ''
 
 {
-  "Total": 32262735,
-  "Images": {
+  "total": 32262735,
+  "repos": {
     "alertmanager": 4329010,
     "alertmanager-legacy": 121,
     "alexa-leds": 2612,
