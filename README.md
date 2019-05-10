@@ -29,17 +29,20 @@ This will consolidate all the images within the provided orgs.
 $ curl https://rgee0.o6s.io/pullstats -d ''
 
 {
-  "alertmanager": 4329010,
-  "alertmanager-legacy": 121,
-  "alexa-leds": 2612,
-  "alpine": 3558970,
-  "api-key-protected": 95837,
-   ...
-  "queue-worker": 4620823,
-  "resizer": 713307,
-  "sentimentanalysis": 35042,
-  "webhookstash": 245125,
-  "wordcount": 21619
+  "Total": 32262735,
+  "Images": {
+    "alertmanager": 4329010,
+    "alertmanager-legacy": 121,
+    "alexa-leds": 2612,
+    "alpine": 3558970,
+    "api-key-protected": 95837,
+    ...
+    "queue-worker": 4620823,
+    "resizer": 713307,
+    "sentimentanalysis": 35042,
+    "webhookstash": 245125,
+    "wordcount": 21619
+  }
 }
 ```
 

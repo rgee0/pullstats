@@ -8,6 +8,11 @@ import (
 	"strings"
 )
 
+type outputType struct {
+	Total  int            `json:"total"`
+	Images map[string]int `json:"images"`
+}
+
 type dockerHubOrgStatsResult struct {
 	User      string `json:"user"`
 	Name      string `json:"name"`
@@ -16,18 +21,21 @@ type dockerHubOrgStatsResult struct {
 	PullCount int    `json:"pull_count"`
 }
 
-func consolidate(r []dockerHubOrgStatsResult) map[string]int {
+func consolidate(r []dockerHubOrgStatsResult) outputType {
 
 	var consolidatedRes = make(map[string]int)
+	var total int
 
 	for _, image := range r {
+		total += image.PullCount
 		if _, exists := consolidatedRes[image.Name]; exists {
 			consolidatedRes[image.Name] += image.PullCount
 		} else {
 			consolidatedRes[image.Name] = image.PullCount
 		}
 	}
-	return consolidatedRes
+	return outputType{Total: total,
+		Images: consolidatedRes}
 }
 
 func getEnvAsSlice(name string, defaultVal []string, sep string) []string {
@@ -72,12 +80,12 @@ func Handle(req []byte) string {
 
 	orgs := getEnvAsSlice("orgs", []string{"rgee0"}, ",")
 	stats := getStats(orgs)
-	consolidatedResults := consolidate(stats)
+	consolidatedResult := consolidate(stats)
 
-	if _, exists := consolidatedResults[image]; exists {
-		retStats, marshErr = json.Marshal(consolidatedResults[image])
+	if _, exists := consolidatedResult.Images[image]; exists {
+		retStats, marshErr = json.Marshal(consolidatedResult.Images[image])
 	} else {
-		retStats, marshErr = json.Marshal(consolidatedResults)
+		retStats, marshErr = json.Marshal(consolidatedResult)
 	}
 
 	if marshErr != nil {
