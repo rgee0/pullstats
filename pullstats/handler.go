@@ -9,8 +9,8 @@ import (
 )
 
 type outputType struct {
-	Total  int            `json:"total"`
-	Images map[string]int `json:"images"`
+	Total int            `json:"total"`
+	Repos map[string]int `json:"repos"`
 }
 
 type dockerHubOrgStatsResult struct {
@@ -35,7 +35,7 @@ func consolidate(r []dockerHubOrgStatsResult) outputType {
 		}
 	}
 	return outputType{Total: total,
-		Images: consolidatedRes}
+		Repos: consolidatedRes}
 }
 
 func getEnvAsSlice(name string, defaultVal []string, sep string) []string {
@@ -82,8 +82,8 @@ func Handle(req []byte) string {
 	stats := getStats(orgs)
 	consolidatedResult := consolidate(stats)
 
-	if _, exists := consolidatedResult.Images[image]; exists {
-		retStats, marshErr = json.Marshal(consolidatedResult.Images[image])
+	if _, exists := consolidatedResult.Repos[image]; exists {
+		retStats, marshErr = json.Marshal(consolidatedResult.Repos[image])
 	} else {
 		retStats, marshErr = json.Marshal(consolidatedResult)
 	}
