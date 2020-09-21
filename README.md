@@ -56,7 +56,7 @@ $ curl -s https://rgee0.o6s.io/pullstats -d '' | jq .
 ### Specific image name
 
 This will consolidate only the provided image name.
-> Note: if the image name ist found within the set then the output will revert to default
+> Note: if the image name isnt found within the set then the output will revert to default
 
 ```sh
 $ curl https://rgee0.o6s.io/pullstats -d 'gateway'
